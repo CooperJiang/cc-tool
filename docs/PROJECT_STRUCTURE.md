@@ -3,7 +3,7 @@
 ## 目录结构
 
 ```
-cc-cli/
+cc-tool/
 ├── bin/
 │   └── cc.js              # CLI 入口脚本
 ├── src/

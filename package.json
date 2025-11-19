@@ -1,7 +1,7 @@
 {
-  "name": "cc-cli",
+  "name": "cc-tool",
   "version": "1.3.0",
-  "description": "Claude Code Session Manager - 交互式会话管理工具",
+  "description": "Interactive session manager for Claude Code - Quick search, list and resume your conversation history",
   "main": "src/index.js",
   "bin": {
     "cc": "./bin/cc.js"
@@ -13,12 +13,15 @@
   "keywords": [
     "claude",
     "claude-code",
-    "cli",
+    "claude-cli",
     "session-manager",
-    "interactive"
+    "cli",
+    "interactive",
+    "conversation",
+    "history"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "CooperJiang",
+  "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
   },
@@ -38,10 +41,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/CooperJiang/cc-tool.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/CooperJiang/cc-tool/issues"
   },
-  "homepage": ""
+  "homepage": "https://github.com/CooperJiang/cc-tool#readme"
 }

@@ -1,13 +1,13 @@
-# CC-CLI
+# CC-Tool
 
 > 交互式的 Claude Code 会话管理工具
 
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/yourusername/cc-cli)
-[![License](https://img.shields.io/badge/license-ISC-green.svg)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/cc-tool.svg)](https://www.npmjs.com/package/cc-tool)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## 简介
 
-CC-CLI 是一个命令行工具，帮助你快速查找、搜索和恢复 Claude Code 的历史会话。
+CC-Tool 是一个命令行工具，帮助你快速查找、搜索和恢复 Claude Code 的历史会话。
 
 **核心功能**：
 - 📋 列出最近会话，单行清晰显示
@@ -17,9 +17,18 @@ CC-CLI 是一个命令行工具，帮助你快速查找、搜索和恢复 Claude
 
 ## 安装
 
+### 从 npm 安装（推荐）
+
 ```bash
-# 克隆或下载项目
-cd /path/to/cc-cli
+npm install -g cc-tool
+```
+
+### 从源码安装
+
+```bash
+# 克隆项目
+git clone https://github.com/CooperJiang/cc-tool.git
+cd cc-tool
 
 # 安装依赖
 npm install
@@ -83,7 +92,7 @@ cc
 ## 项目结构
 
 ```
-cc-cli/
+cc-tool/
 ├── bin/          # CLI 入口
 ├── src/          # 源代码
 │   ├── commands/ # 命令处理
@@ -115,9 +124,9 @@ cc-cli/
 ## 卸载
 
 ```bash
-npm unlink cc-cli
+npm uninstall -g cc-tool
 ```
 
 ## 许可
 
-ISC License
+MIT License
