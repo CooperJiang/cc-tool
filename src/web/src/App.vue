@@ -28,4 +28,29 @@ body {
 #app {
   min-height: 100vh;
 }
+
+/* 全局滚动条样式 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(24, 160, 88, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(24, 160, 88, 0.2);
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(24, 160, 88, 0.35);
+}
 </style>

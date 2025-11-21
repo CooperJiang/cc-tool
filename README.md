@@ -8,7 +8,7 @@
   [![npm version](https://img.shields.io/npm/v/coding-tool.svg)](https://www.npmjs.com/package/coding-tool)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-  <img src="docs/cc-tool.png" alt="CODING-TOOL Screenshot" width="90%" />
+  <img src="docs/bannel.png" alt="CODING-TOOL Banner" width="90%" />
 </div>
 
 ---
@@ -62,6 +62,13 @@ ct ui
 - 🔀 动态切换 API 渠道
 - 📊 实时查看 API 请求日志和 Token 消耗
 - 🎨 拖拽排序、自定义命名
+
+**Web UI 界面预览：**
+
+<div align="center">
+  <img src="docs/cc-tool.png" alt="Web UI 界面截图" width="90%" />
+  <p><i>现代化 Web 界面 - 项目与会话管理、实时日志监控</i></p>
+</div>
 
 ### 命令行模式
 

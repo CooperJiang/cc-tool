@@ -92,10 +92,34 @@ let ws = null
 let isInitialConnection = true // 标记是否是初次连接
 let reconnectAttempts = 0 // 重连尝试次数
 const MAX_RECONNECT_ATTEMPTS = 3 // 最大重连次数
+let reconnectTimer = null // 重连定时器
+let isConnecting = false // 是否正在连接中
 
 // 连接 WebSocket
 function connectWebSocket() {
+  // 避免重复连接
+  if (isConnecting || (ws && ws.readyState === WebSocket.CONNECTING)) {
+    return
+  }
+
+  // 如果已有连接且是打开状态，直接返回
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    return
+  }
+
+  // 如果已有连接但未完全关闭，先关闭
+  if (ws && ws.readyState !== WebSocket.CLOSED) {
+    try {
+      ws.close()
+    } catch (err) {
+      // 忽略关闭错误
+    }
+    ws = null
+  }
+
   try {
+    isConnecting = true
+
     // 根据当前环境构建 WebSocket URL
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
     const host = window.location.host
@@ -105,6 +129,7 @@ function connectWebSocket() {
 
     ws.onopen = () => {
       wsConnected.value = true
+      isConnecting = false
       reconnectAttempts = 0 // 重置重连次数
 
       // 初次连接时清空日志，准备接收历史日志
@@ -154,10 +179,18 @@ function connectWebSocket() {
     ws.onerror = (error) => {
       // 不要打印错误，避免控制台刷屏
       wsConnected.value = false
+      isConnecting = false
     }
 
     ws.onclose = () => {
       wsConnected.value = false
+      isConnecting = false
+
+      // 清除之前的重连定时器
+      if (reconnectTimer) {
+        clearTimeout(reconnectTimer)
+        reconnectTimer = null
+      }
 
       // 限制重连次数，避免无限重连
       if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
@@ -165,7 +198,7 @@ function connectWebSocket() {
 
         // 延迟重连，时间递增（5秒、10秒、15秒）
         const delay = reconnectAttempts * 5000
-        setTimeout(() => {
+        reconnectTimer = setTimeout(() => {
           if (!wsConnected.value) {
             connectWebSocket()
           }
@@ -174,6 +207,8 @@ function connectWebSocket() {
     }
   } catch (err) {
     console.error('Failed to connect WebSocket:', err)
+    isConnecting = false
+    wsConnected.value = false
   }
 }
 
@@ -201,9 +236,21 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  // 清除重连定时器
+  if (reconnectTimer) {
+    clearTimeout(reconnectTimer)
+    reconnectTimer = null
+  }
+
+  // 关闭 WebSocket 连接
   if (ws) {
     ws.close()
+    ws = null
   }
+
+  // 重置状态
+  isConnecting = false
+  wsConnected.value = false
 })
 
 // 暴露给父组件

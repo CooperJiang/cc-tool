@@ -4,7 +4,7 @@ const http = require('http');
 const net = require('net');
 const chalk = require('chalk');
 const { getActiveChannel } = require('./services/channels');
-const { startWebSocketServer, stopWebSocketServer, broadcastLog } = require('./websocket-server');
+const { broadcastLog } = require('./websocket-server');
 const { loadConfig } = require('../config/loader');
 
 let proxyServer = null;
@@ -247,8 +247,9 @@ async function stopProxyServer() {
     return { success: true, message: 'Proxy server not running' };
   }
 
-  // 停止 WebSocket 服务器
-  stopWebSocketServer();
+  // 注意：不要停止 WebSocket 服务器！
+  // WebSocket 服务器附加到 Web UI 的 HTTP 服务器上，
+  // 应该始终保持运行，直到 Web UI 停止
 
   // 清理请求元数据
   requestMetadata.clear();

@@ -14,7 +14,7 @@ async function handleUI() {
   const url = `http://localhost:${port}`;
 
   try {
-    startServer(port);
+    await startServer(port);
 
     // 自动打开浏览器
     setTimeout(async () => {

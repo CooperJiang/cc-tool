@@ -1,15 +1,68 @@
 const express = require('express');
 const path = require('path');
 const chalk = require('chalk');
+const inquirer = require('inquirer');
 const { loadConfig } = require('../config/loader');
 const { startWebSocketServer: attachWebSocketServer } = require('./websocket-server');
+const { isPortInUse, killProcessByPort, waitForPortRelease } = require('../utils/port-helper');
 
-function startServer(port) {
+async function startServer(port) {
   const config = loadConfig();
   // 使用配置的端口，如果没有传入参数
   if (!port) {
     port = config.ports?.webUI || 10099;
   }
+
+  // 检查端口是否被占用
+  const portInUse = await isPortInUse(port);
+  if (portInUse) {
+    console.log(chalk.yellow(`\n⚠️  端口 ${port} 已被占用\n`));
+
+    // 询问用户是否关闭占用端口的进程
+    const { shouldKill } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'shouldKill',
+        message: '是否关闭占用该端口的进程并启动服务？',
+        choices: [
+          { name: '是，关闭进程并启动', value: true },
+          { name: '否，取消启动', value: false }
+        ],
+        default: 0 // 默认选择"是"
+      }
+    ]);
+
+    if (!shouldKill) {
+      console.log(chalk.gray('\n已取消启动'));
+      console.log(chalk.yellow('\n💡 解决方案:'));
+      console.log(chalk.gray('   1. 运行 ct 命令，选择"配置端口"修改端口'));
+      console.log(chalk.gray(`   2. 或手动关闭占用端口 ${port} 的程序\n`));
+      process.exit(0);
+    }
+
+    // 尝试杀掉占用端口的进程
+    console.log(chalk.cyan('正在关闭占用端口的进程...'));
+    const killed = killProcessByPort(port);
+
+    if (!killed) {
+      console.error(chalk.red('\n❌ 无法关闭占用端口的进程'));
+      console.error(chalk.yellow('\n💡 请手动关闭占用端口的程序，或使用其他端口\n'));
+      process.exit(1);
+    }
+
+    // 等待端口释放
+    console.log(chalk.cyan('等待端口释放...'));
+    const released = await waitForPortRelease(port);
+
+    if (!released) {
+      console.error(chalk.red('\n❌ 端口释放超时'));
+      console.error(chalk.yellow('\n💡 请稍后重试，或手动检查端口占用情况\n'));
+      process.exit(1);
+    }
+
+    console.log(chalk.green('✓ 端口已释放\n'));
+  }
+
   const app = express();
 
   // Middleware

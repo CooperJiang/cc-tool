@@ -5,7 +5,7 @@
       <div class="logo-section" @click="goHome">
         <img src="/logo.png" alt="Coding Tool Logo" class="logo-image" />
         <div class="title-group">
-          <h1 class="title-main">CODING-TOOL</h1>
+          <h1 class="title-main">Coding-Tool</h1>
           <span class="title-divider">-</span>
           <span class="title-sub">Vibe Coding增强工作助手</span>
         </div>
