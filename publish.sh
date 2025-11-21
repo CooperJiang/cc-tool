@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# CC-TOOL 发布脚本
+# CODING-TOOL 发布脚本
 
-echo "📦 开始发布 CC-TOOL v2.0.1..."
+echo "📦 开始发布 CODING-TOOL v1.0.0..."
 
 # 1. 构建前端
 echo ""
@@ -37,9 +37,9 @@ if [ $? -eq 0 ]; then
   echo "✅ 发布成功！"
   echo ""
   echo "📖 接下来："
-  echo "   1. 访问 https://www.npmjs.com/package/cc-tool 查看"
-  echo "   2. 测试安装: npm install -g cc-tool"
-  echo "   3. 运行测试: cct"
+  echo "   1. 访问 https://www.npmjs.com/package/coding-tool 查看"
+  echo "   2. 测试安装: npm install -g coding-tool"
+  echo "   3. 运行测试: ct ui"
 else
   echo ""
   echo "❌ 发布失败！请检查错误信息"

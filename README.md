@@ -150,6 +150,14 @@ A: 直接复制 `~/.claude/cc-tool/` 整个目录即可
 
 ---
 
+## ⭐ Star History
+
+如果这个项目对你有帮助，请给它一个 Star ⭐
+
+[![Star History Chart](https://api.star-history.com/svg?repos=CooperJiang/cc-tool&type=Date)](https://star-history.com/#CooperJiang/cc-tool&Date)
+
+---
+
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！

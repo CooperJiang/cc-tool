@@ -50,8 +50,8 @@ function showHelp() {
   console.log(chalk.gray('  $ ct reset           # 重置配置\n'));
 
   console.log(chalk.yellow('更多信息:'));
-  console.log(chalk.gray('  官网: https://github.com/CooperJiang/coding-tool'));
-  console.log(chalk.gray('  问题: https://github.com/CooperJiang/coding-tool/issues\n'));
+  console.log(chalk.gray('  官网: https://github.com/CooperJiang/cc-tool'));
+  console.log(chalk.gray('  问题: https://github.com/CooperJiang/cc-tool/issues\n'));
 }
 
 // 全局错误处理
